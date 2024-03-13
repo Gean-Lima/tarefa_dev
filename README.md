@@ -2,6 +2,8 @@
 
 A new Flutter project.
 
+![](https://raw.githubusercontent.com/Gean-Lima/tarefa_dev/main/tarefa_dev.png)
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.
