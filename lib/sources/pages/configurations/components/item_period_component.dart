@@ -39,7 +39,7 @@ class ItemPeriodComponent extends StatelessWidget {
                   period.name,
                   overflow: TextOverflow.ellipsis,
                   style: GoogleFonts.inter(
-                    fontSize: 20,
+                    fontSize: 14,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
@@ -49,7 +49,7 @@ class ItemPeriodComponent extends StatelessWidget {
                 '${DateFormat('d/MM/y').format(period.start)} a ${DateFormat('d/MM/y').format(period.end)}',
                 style: GoogleFonts.inter(
                   color: const Color(0xFF3D3D3D),
-                  fontSize: 15,
+                  fontSize: 11,
                   fontWeight: FontWeight.w400,
                 ),
               )

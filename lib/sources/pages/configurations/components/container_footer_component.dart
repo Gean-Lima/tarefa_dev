@@ -9,20 +9,20 @@ class ContainerFooterComponent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 50),
+      padding: const EdgeInsets.only(top: 65.04, bottom: 67.49),
       child: Row(
         children: [
           AvatarComponent(
             image: 'assets/images/profile.png',
           ),
-          const SizedBox(width: 10),
+          const SizedBox(width: 14),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
                 'João',
                 style: GoogleFonts.inter(
-                  fontSize: 20,
+                  fontSize: 16.78,
                   fontWeight: FontWeight.w500,
                   color: ColorsApp.primary
                 ),
@@ -30,7 +30,7 @@ class ContainerFooterComponent extends StatelessWidget {
               Text(
                 'Sair',
                 style: GoogleFonts.inter(
-                  fontSize: 15,
+                  fontSize: 13,
                   fontWeight: FontWeight.w500,
                   color: ColorsApp.primary,
                   decoration: TextDecoration.underline,

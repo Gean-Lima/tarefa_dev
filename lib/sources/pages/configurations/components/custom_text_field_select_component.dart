@@ -14,6 +14,7 @@ class CustomTextFieldSelectComponent extends StatefulWidget {
   String? hintText;
   TextAlign textAlign;
   PeriodCategory category;
+  double fontSize;
   void Function(PeriodCategory) onChange;
 
   CustomTextFieldSelectComponent({
@@ -26,6 +27,7 @@ class CustomTextFieldSelectComponent extends StatefulWidget {
     this.backgroundColor,
     this.hintText,
     this.textAlign = TextAlign.start,
+    this.fontSize = 12,
     required this.category,
     required this.onChange
   });
@@ -73,6 +75,7 @@ class CustomTextFieldSelectComponentState extends State<CustomTextFieldSelectCom
           textAlign: widget.textAlign,
           readOnly: true,
           suffixIcon: SvgPicture.asset('assets/svg/down.svg'),
+          fontSize: widget.fontSize,
           onTap: () {
             if (menuController.isOpen) {
               menuController.close();

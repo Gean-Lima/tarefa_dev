@@ -17,6 +17,7 @@ class CustomTextFieldComponent extends StatelessWidget {
   Widget? suffixIcon;
   String? Function(String?)? validator;
   bool errorText;
+  double fontSize;
 
   CustomTextFieldComponent({
     super.key,
@@ -33,7 +34,8 @@ class CustomTextFieldComponent extends StatelessWidget {
     this.onTap,
     this.suffixIcon,
     this.validator,
-    this.errorText = true
+    this.errorText = true,
+    this.fontSize = 12
   });
 
   @override
@@ -55,10 +57,14 @@ class CustomTextFieldComponent extends StatelessWidget {
             textAlign: textAlign,
             readOnly: readOnly,
             onTap: onTap,
+            style: GoogleFonts.inter(
+              fontWeight: FontWeight.w500,
+              fontSize: fontSize
+            ),
             decoration: InputDecoration(
               suffixIcon: suffixIcon != null
                 ? Container(
-                    padding: const EdgeInsets.symmetric(vertical: 13, horizontal: 0),
+                    padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 0),
                     child: suffixIcon,
                   )
                 : null,

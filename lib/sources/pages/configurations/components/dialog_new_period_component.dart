@@ -44,13 +44,12 @@ class DialogNewPeriodComponentState extends State<DialogNewPeriodComponent>
   void initState() {
     if (widget.period != null) {
       bloc.add(DialogPeriodUpdate(
-        name: widget.period!.name,
-        start: widget.period!.start,
-        end: widget.period!.end,
-        category: widget.period!.category,
-        meta1: widget.period!.meta1,
-        meta2: widget.period!.meta2
-      ));
+          name: widget.period!.name,
+          start: widget.period!.start,
+          end: widget.period!.end,
+          category: widget.period!.category,
+          meta1: widget.period!.meta1,
+          meta2: widget.period!.meta2));
 
       nameController.text = widget.period!.name;
       meta1Controller.text = widget.period!.meta1.toString();
@@ -58,21 +57,15 @@ class DialogNewPeriodComponentState extends State<DialogNewPeriodComponent>
     }
 
     nameController.addListener(() {
-      bloc.add(DialogPeriodUpdate(
-        name: nameController.text
-      ));
+      bloc.add(DialogPeriodUpdate(name: nameController.text));
     });
 
     meta1Controller.addListener(() {
-      bloc.add(DialogPeriodUpdate(
-        meta1: int.parse(meta1Controller.text)
-      ));
+      bloc.add(DialogPeriodUpdate(meta1: int.parse(meta1Controller.text)));
     });
 
     meta2Controller.addListener(() {
-      bloc.add(DialogPeriodUpdate(
-        meta2: int.parse(meta2Controller.text)
-      ));
+      bloc.add(DialogPeriodUpdate(meta2: int.parse(meta2Controller.text)));
     });
 
     super.initState();
@@ -94,325 +87,336 @@ class DialogNewPeriodComponentState extends State<DialogNewPeriodComponent>
         bloc: bloc,
         builder: (context, DialogPeriodState state) {
           return Container(
+            height: 463.25,
             decoration: BoxDecoration(
-                color: Colors.white, borderRadius: BorderRadius.circular(28)),
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(28),
+            ),
             padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: SingleChildScrollView(
-              child: Form(
-                key: _formKey,
-                child: Column(
-                  children: [
-                    Stack(
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.all(15),
-                          alignment: Alignment.center,
-                          child: Text(
-                            'Novo período',
-                            style: GoogleFonts.inter(
-                                fontWeight: FontWeight.w600, fontSize: 15),
+            child: Form(
+              key: _formKey,
+              child: Column(
+                children: [
+                  Stack(
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.all(15),
+                        alignment: Alignment.center,
+                        child: Text(
+                          'Novo período',
+                          style: GoogleFonts.inter(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 12,
                           ),
                         ),
-                        Positioned(
-                          top: 10,
-                          right: 0,
-                          child: InkWell(
-                            onTap: () {
-                              Navigator.of(context).pop();
-                            },
-                            child: SvgPicture.asset(
-                              'assets/svg/close.svg',
-                              height: 28,
-                              width: 28,
-                            ),
+                      ),
+                      Positioned(
+                        top: 12,
+                        right: 0,
+                        child: InkWell(
+                          onTap: () {
+                            Navigator.of(context).pop();
+                          },
+                          child: SvgPicture.asset(
+                            'assets/svg/close.svg',
+                            height: 17.8,
+                            width: 17.8,
                           ),
+                        ),
+                      )
+                    ],
+                  ),
+                  const SizedBox(height: 16),
+                  CustomTextFieldComponent(
+                    height: 39,
+                    controller: nameController,
+                    borderWidth: 0,
+                    backgroundColor: const Color(0xFFF5F6FA),
+                    hintText: 'Nomeie seu periodo',
+                    validator: isNotEmpty,
+                    readOnly: isNotEditing,
+                  ),
+                  const SizedBox(height: 18),
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 17,
+                      vertical: 19,
+                    ),
+                    decoration: BoxDecoration(
+                      color: isNotEditing
+                          ? Colors.transparent
+                          : const Color(0xFFF5F6FA),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Column(
+                      children: [
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'Começa',
+                              style: GoogleFonts.inter(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            isNotEditing
+                                ? Padding(
+                                    padding:
+                                        const EdgeInsets.symmetric(vertical: 8),
+                                    child: Text(
+                                      DateFormat("d 'de' MMM. 'de' yyyy")
+                                          .format(widget.period!.start),
+                                      style: GoogleFonts.inter(fontSize: 10),
+                                    ),
+                                  )
+                                : CustomTextFieldDateTimeComponent(
+                                    height: 29,
+                                    width: 110,
+                                    borderRadius: 10,
+                                    borderWidth: 1,
+                                    backgroundColor: Colors.white,
+                                    selectedDate: state.start,
+                                    fontSize: 10,
+                                    onChange: (DateTime date) {
+                                      bloc.add(
+                                        DialogPeriodUpdate(start: date),
+                                      );
+                                    },
+                                  )
+                          ],
+                        ),
+                        DividerComponent(
+                          height: 1,
+                          margin: const EdgeInsets.symmetric(vertical: 8),
+                        ),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'Termina',
+                              style: GoogleFonts.inter(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            isNotEditing
+                                ? Padding(
+                                    padding:
+                                        const EdgeInsets.symmetric(vertical: 8),
+                                    child: Text(
+                                      DateFormat("d 'de' MMM. 'de' yyyy")
+                                          .format(widget.period!.end),
+                                      style: GoogleFonts.inter(fontSize: 10),
+                                    ),
+                                  )
+                                : CustomTextFieldDateTimeComponent(
+                                    height: 29,
+                                    width: 110,
+                                    borderRadius: 10,
+                                    borderWidth: 1,
+                                    backgroundColor: Colors.white,
+                                    selectedDate: state.end,
+                                    fontSize: 10,
+                                    onChange: (DateTime date) {
+                                      bloc.add(DialogPeriodUpdate(end: date));
+                                    },
+                                  )
+                          ],
+                        ),
+                        DividerComponent(
+                          height: 1,
+                          margin: const EdgeInsets.symmetric(vertical: 8),
+                        ),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'Categoria',
+                              style: GoogleFonts.inter(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            isNotEditing
+                                ? Padding(
+                                    padding:
+                                        const EdgeInsets.symmetric(vertical: 8),
+                                    child: Text(
+                                      'Categoria ${widget.period!.category.num}',
+                                      style: GoogleFonts.inter(fontSize: 10),
+                                    ),
+                                  )
+                                : CustomTextFieldSelectComponent(
+                                    height: 29,
+                                    width: 110,
+                                    borderRadius: 10,
+                                    borderWidth: 1,
+                                    backgroundColor: Colors.white,
+                                    fontSize: 10,
+                                    category: state.category,
+                                    onChange: (val) {
+                                      bloc.add(
+                                          DialogPeriodUpdate(category: val));
+                                    },
+                                  )
+                          ],
                         )
                       ],
                     ),
-                    const SizedBox(height: 20),
-                    CustomTextFieldComponent(
-                      controller: nameController,
-                      borderWidth: 0,
-                      backgroundColor: const Color(0xFFF5F6FA),
-                      hintText: 'Nomeie seu periodo',
-                      validator: isNotEmpty,
-                      readOnly: isNotEditing,
+                  ),
+                  const SizedBox(height: 17),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 17,
                     ),
-                    const SizedBox(height: 20),
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 18,
-                        vertical: 26,
-                      ),
-                      decoration: BoxDecoration(
-                        color: isNotEditing
-                            ? Colors.transparent
-                            : const Color(0xFFF5F6FA),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: Column(
-                        children: [
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                'Começa',
-                                style: GoogleFonts.inter(
-                                    fontSize: 16, fontWeight: FontWeight.w500),
+                    child: Column(
+                      children: [
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'Meta 1',
+                              style: GoogleFonts.inter(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w500,
                               ),
-                              isNotEditing
-                                  ? Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          vertical: 8),
-                                      child: Text(
-                                        DateFormat("d 'de' MMM. 'de' yyyy")
-                                            .format(widget.period!.start),
-                                        style: GoogleFonts.inter(fontSize: 16),
-                                      ),
-                                    )
-                                  : CustomTextFieldDateTimeComponent(
-                                      height: 35,
-                                      width: 146,
-                                      borderRadius: 10,
-                                      borderWidth: 1,
-                                      backgroundColor: Colors.white,
-                                      selectedDate: state.start,
-                                      onChange: (DateTime date) {
-                                        bloc.add(DialogPeriodUpdate(
-                                          start: date
-                                        ));
-                                      },
-                                    )
-                            ],
-                          ),
-                          DividerComponent(
-                            height: 1,
-                            margin: const EdgeInsets.symmetric(vertical: 10),
-                          ),
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                'Termina',
-                                style: GoogleFonts.inter(
-                                    fontSize: 16, fontWeight: FontWeight.w500),
+                            ),
+                            isNotEditing
+                                ? Padding(
+                                    padding:
+                                        const EdgeInsets.symmetric(vertical: 8),
+                                    child: Text(
+                                      widget.period!.meta1.toString(),
+                                      style: GoogleFonts.inter(fontSize: 10),
+                                    ),
+                                  )
+                                : CustomTextFieldComponent(
+                                    controller: meta1Controller,
+                                    height: 24.72,
+                                    width: 64.2,
+                                    borderRadius: 10,
+                                    borderWidth: 1,
+                                    backgroundColor: Colors.white,
+                                    hintText: 'Un',
+                                    fontSize: 10,
+                                    textAlign: TextAlign.center,
+                                    validator: (value) => combine([
+                                      () => isNotEmpty(value),
+                                      () => isNotNumber(value)
+                                    ]),
+                                    errorText: false,
+                                  )
+                          ],
+                        ),
+                        const SizedBox(height: 20),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'Meta 2',
+                              style: GoogleFonts.inter(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w500,
                               ),
-                              isNotEditing
-                                  ? Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          vertical: 8),
-                                      child: Text(
-                                        DateFormat("d 'de' MMM. 'de' yyyy")
-                                            .format(widget.period!.end),
-                                        style: GoogleFonts.inter(fontSize: 16),
-                                      ),
-                                    )
-                                  : CustomTextFieldDateTimeComponent(
-                                      height: 35,
-                                      width: 146,
-                                      borderRadius: 10,
-                                      borderWidth: 1,
-                                      backgroundColor: Colors.white,
-                                      selectedDate: state.end,
-                                      onChange: (DateTime date) {
-                                        bloc.add(DialogPeriodUpdate(
-                                          end: date
-                                        ));
-                                      })
-                            ],
-                          ),
-                          DividerComponent(
-                            height: 1,
-                            margin: const EdgeInsets.symmetric(vertical: 10),
-                          ),
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                'Categoria',
-                                style: GoogleFonts.inter(
-                                    fontSize: 16, fontWeight: FontWeight.w500),
-                              ),
-                              isNotEditing
-                                  ? Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          vertical: 8),
-                                      child: Text(
-                                        'Categoria ${widget.period!.category.num}',
-                                        style: GoogleFonts.inter(fontSize: 16),
-                                      ),
-                                    )
-                                  : CustomTextFieldSelectComponent(
-                                      height: 35,
-                                      width: 146,
-                                      borderRadius: 10,
-                                      borderWidth: 1,
-                                      backgroundColor: Colors.white,
-                                      category: state.category,
-                                      onChange: (val) {
-                                        bloc.add(DialogPeriodUpdate(
-                                          category: val
-                                        ));
-                                      },
-                                    )
-                            ],
-                          )
-                        ],
-                      ),
+                            ),
+                            isNotEditing
+                                ? Padding(
+                                    padding:
+                                        const EdgeInsets.symmetric(vertical: 8),
+                                    child: Text(
+                                      widget.period!.meta2.toString(),
+                                      style: GoogleFonts.inter(fontSize: 10),
+                                    ),
+                                  )
+                                : CustomTextFieldComponent(
+                                    controller: meta2Controller,
+                                    height: 24.72,
+                                    width: 64.2,
+                                    borderRadius: 10,
+                                    borderWidth: 1,
+                                    backgroundColor: Colors.white,
+                                    hintText: 'Un',
+                                    textAlign: TextAlign.center,
+                                    fontSize: 10,
+                                    validator: (value) => combine([
+                                      () => isNotEmpty(value),
+                                      () => isNotNumber(value)
+                                    ]),
+                                    errorText: false,
+                                  )
+                          ],
+                        ),
+                      ],
                     ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 18,
-                        vertical: 26,
-                      ),
-                      child: Column(
-                        children: [
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                'Meta 1',
-                                style: GoogleFonts.inter(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w500,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 36, bottom: 22),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: isNotEditing
+                          ? [
+                              CustomButtonComponent(
+                                height: 30,
+                                width: 89,
+                                backgroundColor: ColorsApp.danger,
+                                onPressed: () {
+                                  BlocProvider.of<PeriodsBloc>(
+                                    context,
+                                    listen: false,
+                                  ).add(
+                                    PeriodsEventDelete(
+                                        periodId: widget.period!.id),
+                                  );
+
+                                  Navigator.of(context).pop();
+                                },
+                                child: Text(
+                                  'Excluir',
+                                  style: GoogleFonts.inter(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 12,
+                                  )
                                 ),
                               ),
-                              isNotEditing
-                                  ? Padding(
-                                      padding: const EdgeInsets.symmetric(vertical: 8),
-                                      child: Text(
-                                        widget.period!.meta1.toString(),
-                                        style: GoogleFonts.inter(fontSize: 16),
-                                      ),
-                                    )
-                                  : CustomTextFieldComponent(
-                                      controller: meta1Controller,
-                                      height: 35,
-                                      width: 85,
-                                      borderRadius: 10,
-                                      borderWidth: 1,
-                                      backgroundColor: Colors.white,
-                                      hintText: 'Un',
-                                      textAlign: TextAlign.center,
-                                      validator: (value) => combine([
-                                        () => isNotEmpty(value),
-                                        () => isNotNumber(value)
-                                      ]),
-                                      errorText: false,
-                                    )
-                            ],
-                          ),
-                          const SizedBox(height: 20),
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                'Meta 2',
-                                style: GoogleFonts.inter(
-                                    fontSize: 16, fontWeight: FontWeight.w500),
+                              const SizedBox(
+                                width: 30,
                               ),
-                              isNotEditing
-                                  ? Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          vertical: 8),
-                                      child: Text(
-                                        widget.period!.meta2.toString(),
-                                        style: GoogleFonts.inter(fontSize: 16),
-                                      ),
-                                    )
-                                  : CustomTextFieldComponent(
-                                      controller: meta2Controller,
-                                      height: 35,
-                                      width: 85,
-                                      borderRadius: 10,
-                                      borderWidth: 1,
-                                      backgroundColor: Colors.white,
-                                      hintText: 'Un',
-                                      textAlign: TextAlign.center,
-                                      validator: (value) => combine([
-                                        () => isNotEmpty(value),
-                                        () => isNotNumber(value)
-                                      ]),
-                                      errorText: false,
-                                    )
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 15, bottom: 40),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: isNotEditing
-                            ? [
-                                CustomButtonComponent(
-                                  backgroundColor: ColorsApp.danger,
-                                  onPressed: () {
+                              CustomButtonComponent(
+                                height: 30,
+                                width: 89,
+                                onPressed: () {
+                                  bloc.add(DialogPeriodUpdate(edition: true));
+                                },
+                                child: Text(
+                                  'Editar',
+                                  style: GoogleFonts.inter(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 12,
+                                  )
+                                ),
+                              )
+                            ]
+                          : [
+                              CustomButtonComponent(
+                                height: 30,
+                                width: 89,
+                                onPressed: () {
+                                  if (!_formKey.currentState!.validate()) return;
+
+                                  if (widget.period != null) {
                                     BlocProvider.of<PeriodsBloc>(
                                       context,
                                       listen: false,
                                     ).add(
-                                      PeriodsEventDelete(
-                                        periodId: widget.period!.id
-                                      ),
-                                    );
-
-                                    Navigator.of(context).pop();
-                                  },
-                                  child: const Text('Excluir'),
-                                ),
-                                const SizedBox(
-                                  width: 30,
-                                ),
-                                CustomButtonComponent(
-                                  onPressed: () {
-                                    bloc.add(DialogPeriodUpdate(
-                                      edition: true
-                                    ));
-                                  },
-                                  child: const Text('Editar'),
-                                )
-                              ]
-                            : [
-                                CustomButtonComponent(
-                                  onPressed: () {
-                                    if (!_formKey.currentState!.validate()) return;
-
-                                    if (widget.period != null) {
-                                      BlocProvider.of<PeriodsBloc>(
-                                        context,
-                                        listen: false,
-                                      ).add(
-                                        PeriodsEventUpdate(
-                                          period: Period(
-                                            id: widget.period!.id,
-                                            name: state.name,
-                                            start: state.start,
-                                            end: state.end,
-                                            category: state.category,
-                                            meta1: state.meta1,
-                                            meta2: state.meta2,
-                                          ),
-                                        ),
-                                      );
-
-                                      Navigator.of(context).pop();
-                                      return;
-                                    }
-
-                                    BlocProvider.of<PeriodsBloc>(
-                                      context,
-                                      listen: false,
-                                    ).add(
-                                      PeriodsEventAdd(
+                                      PeriodsEventUpdate(
                                         period: Period(
-                                          id: const Uuid().v4(),
+                                          id: widget.period!.id,
                                           name: state.name,
                                           start: state.start,
                                           end: state.end,
@@ -424,14 +428,40 @@ class DialogNewPeriodComponentState extends State<DialogNewPeriodComponent>
                                     );
 
                                     Navigator.of(context).pop();
-                                  },
-                                  child: const Text('Concluir'),
-                                )
-                              ],
-                      ),
-                    )
-                  ],
-                ),
+                                    return;
+                                  }
+
+                                  BlocProvider.of<PeriodsBloc>(
+                                    context,
+                                    listen: false,
+                                  ).add(
+                                    PeriodsEventAdd(
+                                      period: Period(
+                                        id: const Uuid().v4(),
+                                        name: state.name,
+                                        start: state.start,
+                                        end: state.end,
+                                        category: state.category,
+                                        meta1: state.meta1,
+                                        meta2: state.meta2,
+                                      ),
+                                    ),
+                                  );
+
+                                  Navigator.of(context).pop();
+                                },
+                                child: Text(
+                                  'Concluir',
+                                  style: GoogleFonts.inter(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 12,
+                                  ),
+                                ),
+                              )
+                            ],
+                    ),
+                  )
+                ],
               ),
             ),
           );

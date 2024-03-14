@@ -15,8 +15,8 @@ class AvatarComponent extends StatelessWidget {
       borderRadius: BorderRadius.circular(100),
       child: Image.asset(
         image,
-        width: 50,
-        height: 50,
+        width: 44.13,
+        height: 44.13,
       )
     );
   }

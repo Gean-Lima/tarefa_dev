@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:tarefa_dev/sources/components/custom_text_field_component.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
 // ignore: must_be_immutable
 class CustomTextFieldDateTimeComponent extends StatefulWidget {
@@ -13,6 +14,7 @@ class CustomTextFieldDateTimeComponent extends StatefulWidget {
   String? hintText;
   TextAlign textAlign;
   DateTime selectedDate;
+  double fontSize;
   void Function(DateTime) onChange;
 
   CustomTextFieldDateTimeComponent({
@@ -25,6 +27,7 @@ class CustomTextFieldDateTimeComponent extends StatefulWidget {
     this.backgroundColor,
     this.hintText,
     this.textAlign = TextAlign.start,
+    this.fontSize = 12,
     required this.selectedDate,
     required this.onChange
   });
@@ -40,7 +43,7 @@ class CustomTextFieldDateTimeComponentState extends State<CustomTextFieldDateTim
   void initState() {
     super.initState();
 
-    controller.text = DateFormat("d 'de' MMM. 'de' yyyy").format(widget.selectedDate);
+    controller.text = DateFormat("d 'de' MMM 'de' yyyy", 'pt_BR').format(widget.selectedDate);
   }
 
   openDatePicker() async {
@@ -51,7 +54,7 @@ class CustomTextFieldDateTimeComponentState extends State<CustomTextFieldDateTim
     );
 
     if (date != null) {
-      controller.text = DateFormat("d 'de' MMM. 'de' yyyy").format(date);
+      controller.text = DateFormat("d 'de' MMM 'de' yyyy", 'pt_BR').format(date);
       widget.onChange(date);
     }
   }
@@ -69,6 +72,7 @@ class CustomTextFieldDateTimeComponentState extends State<CustomTextFieldDateTim
       hintText: widget.hintText,
       textAlign: widget.textAlign,
       readOnly: true,
+      fontSize: widget.fontSize,
       onTap: openDatePicker,
     );
   }

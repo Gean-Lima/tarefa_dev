@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tarefa_dev/sources/blocs/periods/periods_bloc.dart';
 import 'package:tarefa_dev/sources/routes.dart';
 import 'package:tarefa_dev/sources/services/storage_service.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 // ignore: must_be_immutable
 class MyApp extends StatelessWidget {
@@ -17,6 +18,11 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => PeriodsBloc(storageService: storageService))
       ],
       child: MaterialApp(
+        localizationsDelegates: const [
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate
+        ],
+        supportedLocales: const [Locale('pt', 'BR')],
         debugShowCheckedModeBanner: false,
         title: 'Tarefa Dev',
         routes: RoutesApp.routes,

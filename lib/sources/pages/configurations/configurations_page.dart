@@ -52,11 +52,14 @@ class ConfigurationsPageState extends State<ConfigurationsPage> {
                 ),
               ),
             ),
-            leadingWidth: 45,
+            leadingWidth: 42,
             title: Text(
               'Configurações',
               style:
-                  GoogleFonts.inter(fontSize: 25, fontWeight: FontWeight.w600),
+                  GoogleFonts.inter(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w600,
+                  ),
             ),
             titleSpacing: 5,
           ),
@@ -70,45 +73,54 @@ class ConfigurationsPageState extends State<ConfigurationsPage> {
                   children: [
                     Flexible(
                       child: CustomTextFieldComponent(
-                        height: 35,
+                        height: 31,
+                        // width: 198.06,
                         label: Text(
                           'Apelido',
                           style: GoogleFonts.inter(
                             fontWeight: FontWeight.w500,
-                            fontSize: 15,
+                            fontSize: 11,
                           ),
                         ),
                         readOnly: true,
                       ),
                     ),
-                    const SizedBox(width: 10),
+                    const SizedBox(width: 9.9),
                     const ContainerProfileImageComponent()
                   ],
                 ),
                 DividerComponent(
-                  margin: const EdgeInsets.only(top: 26, bottom: 16),
+                  height: 1.9,
+                  margin: const EdgeInsets.only(top: 22.31, bottom: 16.67),
                 ),
                 Text(
                   'Períodos',
                   style: GoogleFonts.inter(
                     fontWeight: FontWeight.w600,
-                    fontSize: 21,
+                    fontSize: 14,
                   ),
                 ),
-                const SizedBox(height: 18),
+                const SizedBox(height: 17.82),
                 ContainerPeriodsComponent(
                   isLoading: state.loading,
                   children: state.periods
                     .map((period) => ItemPeriodComponent(period: period))
                     .toList(),
                 ),
+                const SizedBox(height: 12),
                 Container(
-                  padding: const EdgeInsets.symmetric(vertical: 12),
                   alignment: Alignment.topRight,
                   child: CustomButtonComponent(
                     onPressed: addPeriod,
-                    height: 30,
-                    child: const Text('Adicionar Periodo'),
+                    width: 120,
+                    height: 24,
+                    child: Text(
+                      'Adicionar Periodo',
+                      style: GoogleFonts.inter(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 10
+                      ),
+                    ),
                   ),
                 ),
                 const ContainerFooterComponent()

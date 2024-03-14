@@ -11,7 +11,7 @@ class ContainerProfileImageComponent extends StatelessWidget {
       onTap: () {},
       borderRadius: BorderRadius.circular(12),
       child: Container(
-        width: 150,
+        width: 129.62,
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
         decoration: BoxDecoration(
           color: const Color(0xFFF0F0F0),
@@ -27,7 +27,7 @@ class ContainerProfileImageComponent extends StatelessWidget {
               'Editar Foto',
               style: GoogleFonts.inter(
                 fontWeight: FontWeight.w500,
-                fontSize: 15
+                fontSize: 11
               ),
             )
           ],
